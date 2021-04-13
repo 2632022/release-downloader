@@ -12,18 +12,22 @@ async function main() {
 
   const octokit = github.getOctokit(access_token);
 
-  const archive = await octokit.request(
-    "GET /repos/{owner}/{repo}/tarball/{tag}",
-    {
+  const archive = await octokit
+    .request("GET /repos/{owner}/{repo}/tarball/{tag}", {
       owner,
       repo,
       tag,
-    }
-  );
+    })
+    .then((res) => res.data)
+    .catch((e) =>
+      core.setFailed(
+        `${e.message} - Tag ${tag} was not found on repo ${owner}/${repo}`
+      )
+    );
 
-  await appendFileSync("./archive.tar.gz", Buffer.from(archive.data));
+  await appendFileSync("./archive.tar.gz", Buffer.from(archive));
 }
 
 main()
   .then(() => core.info("Download Complete."))
-  .catch((e) => core.setFailed(e.message));
+  .catch((e) => core.setFailed(`${e.message} `));
