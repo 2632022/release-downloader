@@ -1,4 +1,4 @@
-name: "Release Downloader"
+name: "GitHub Release Downloader"
 description: "GitHub action creates a deployment into an existing Amplify aplication"
 branding:
   color: yellow
