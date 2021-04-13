@@ -1,11 +1,11 @@
 {
   "name": "release-downloader",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "GitHub action to download a release tarball.",
   "main": "./dist/index.js",
   "type": "module",
   "scripts": {
-    "build": "ncc build -m ./src/index.js",
+    "build": "ncc build src/index.ts --license LICENSES.txt",
     "lint": "eslint ./src/**/*.js --ignore-path .gitignore --fix",
     "prerelease": "ncc build -m ./src/index.js && git add . && cross-env-shell changelog --$npm_config_type && git add CHANGELOG.md && git commit -m \"chore(auto): [NOSTORY] Updated CHANGELOG.md\" ",
     "release": "cross-env-shell npm version $npm_config_type",
@@ -14,7 +14,7 @@
   "author": "Luis Chacón",
   "license": "Apache-2.0",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.2.7",
     "@actions/github": "^4.0.0"
   },
   "devDependencies": {

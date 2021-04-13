@@ -1,5 +1,5 @@
-name: 'Release Downloader'
-description: 'GitHub action creates a deployment into an existing Amplify aplication'
+name: "Release Downloader"
+description: "GitHub action creates a deployment into an existing Amplify aplication"
 branding:
   color: yellow
   icon: at-sign
@@ -7,10 +7,14 @@ inputs:
   tag:
     description: Release Tag
     required: true
+  access_token:
+    description: "Your GitHub Access Token, defaults to: {{ github.token }}"
+    default: "${{ github.token }}"
+    required: true
 outputs:
   jobId:
-    description: 'Final Job Id that was generated after a deployment request'
+    description: "Final Job Id that was generated after a deployment request"
 
 runs:
-  using: 'node12'
-  main: './dist/index.js'
+  using: "node12"
+  main: "./src/index.ts"
