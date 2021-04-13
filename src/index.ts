@@ -1,15 +1,10 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-
-// const { readFileSync } = require("fs");
+import { appendFileSync } from "fs";
 
 async function main() {
   const {
-    // eventName,
-    // sha,
-    // ref,
     repo: { owner, repo },
-    // payload,
   } = github.context;
 
   const tag = core.getInput("tag");
@@ -17,8 +12,8 @@ async function main() {
 
   const octokit = github.getOctokit(access_token);
 
-  const release = await octokit.request(
-    "GET /repos/{owner}/{repo}/releases/tags/{tag}",
+  const archive = await octokit.request(
+    "GET /repos/{owner}/{repo}/tarball/{tag}",
     {
       owner,
       repo,
@@ -26,7 +21,7 @@ async function main() {
     }
   );
 
-  console.log(release);
+  await appendFileSync("./archive.tar.gz", Buffer.from(archive.data));
 }
 
 main()

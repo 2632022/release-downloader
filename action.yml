@@ -11,9 +11,6 @@ inputs:
     description: "Your GitHub Access Token, defaults to: {{ github.token }}"
     default: "${{ github.token }}"
     required: true
-outputs:
-  jobId:
-    description: "Final Job Id that was generated after a deployment request"
 
 runs:
   using: "node12"

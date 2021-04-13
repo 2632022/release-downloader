@@ -6088,6 +6088,9 @@ __nccwpck_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_core__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__nccwpck_require__.n(_actions_core__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1__ = __nccwpck_require__(438);
 /* harmony import */ var _actions_github__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__nccwpck_require__.n(_actions_github__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_2__ = __nccwpck_require__(747);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__nccwpck_require__.n(fs__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 async function main() {
@@ -6095,12 +6098,12 @@ async function main() {
     const tag = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("tag");
     const access_token = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput("access_token");
     const octokit = _actions_github__WEBPACK_IMPORTED_MODULE_1__.getOctokit(access_token);
-    const release = await octokit.request("GET /repos/{owner}/{repo}/releases/tags/{tag}", {
+    const archive = await octokit.request("GET /repos/{owner}/{repo}/tarball/{tag}", {
         owner,
         repo,
         tag,
     });
-    console.log(release);
+    await (0,fs__WEBPACK_IMPORTED_MODULE_2__.appendFileSync)("./archive.tar.gz", Buffer.from(archive.data));
 }
 main()
     .then(() => _actions_core__WEBPACK_IMPORTED_MODULE_0__.info("Download Complete."))

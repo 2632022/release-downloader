@@ -1,37 +1,18 @@
 # Release Downloader
 The `release-downloader` GitHub action to download the release tarball from the current repo by release tag
 
-
 ## Usage
 
 ```yml
-- uses: luisgreen/amplify_deployment@main
+- uses: luisgreen/release-downloader@main
   with:
-    # Amplify Application ID
+    # Release Tag
     # required: true
-    appId: ''
+    tag:
+    description: 
+    required: true
 
-    # Amplify Application branch to deploy
+    # Your GitHub Access Token, defaults to: {{ github.token }}
     # required: true
-    branchName: ''
-
-    
-    # Path where the artifact is located to be deployed
-    # required: true
-    artifactPath:
-
-    # Region of the Amplify Application
-    # required: true
-    region:
-```
-
-## Sample
-
-```yml
-- uses: luisgreen/amplify_deployment@main
-  with:
-    appId: 'asd8adsjasd9'
-    branchName: 'master'
-    artifactPath: './myapp.zip'
-    region: 'us-west-2'
+    access_token:
 ```
