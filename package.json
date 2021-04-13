@@ -1,6 +1,6 @@
 {
   "name": "release-downloader",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "GitHub action to download a release tarball.",
   "main": "./dist/index.js",
   "type": "module",

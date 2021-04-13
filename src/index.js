@@ -4,6 +4,8 @@ const github = require("@actions/github");
 const { readFileSync } = require("fs");
 
 async function main() {
+  const octokit = github.getOctokit(token);
+
   const {
     eventName,
     sha,
@@ -12,16 +14,14 @@ async function main() {
     payload,
   } = github.context;
 
-  const artifact = core.getInput("artifact");
-  const token = core.getInput("token");
-  const octokit = github.getOctokit(token);
+  const tag = core.getInput("tag");
 
   const release = await octokit.request(
     "GET /repos/{owner}/{repo}/releases/tags/{tag}",
     {
-      owner: "octocat",
-      repo: "hello-world",
-      tag: "tag",
+      owner,
+      repo,
+      tag,
     }
   );
 
